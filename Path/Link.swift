@@ -13,8 +13,8 @@ enum Link: BaseTargetType {
     case getItemDetail(itemID: Int)
     case putItemToCart(itemID: Int,quantity: Int)
     case getCartList
-    case signUp(email: String, password: Int, nickname: String)
-    case login(email: String, password: Int)
+    case signUp(email: String, password: String, nickname: String)
+    case login(email: String, password: String)
 }
 
 extension Link: TargetType {
@@ -80,9 +80,6 @@ extension Link: TargetType {
         }
     }
     var headers: [String: String]? {
-        switch self {
-        default:
-            return ["Authorization": "Bearer " + KeychainHandler.shared.accessToken]
-        }
+        return nil
     }
 }

@@ -43,7 +43,7 @@ extension CreateIDViewController {
 
             provider.request(Link.signUp(
                 email: self.idField.text! ,
-                password: Int(self.passwordField.text! ) ?? 0,
+                password: self.passwordField.text! ,
                 nickname: self.nicknameField.text! )) { response in
                 switch response {
                 case .success(let result):
@@ -61,7 +61,6 @@ extension CreateIDViewController {
                 }
             }
         } else {
-            
             print("모든 항목을 입력하세요!")
         }
     }

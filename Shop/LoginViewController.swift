@@ -30,13 +30,15 @@ class LoginViewController: UIViewController {
     
     @IBAction func LoginButton(_ sender: UIButton) {
         self.loginButtonClicked()
+        guard let tabVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else { return }
+        self.navigationController?.pushViewController(tabVC , animated: true)
     }
     
 }
 extension LoginViewController {
     private func loginButtonClicked() {
         if idTextField.text != "" && passwordTextField.text != "" {
-            provider.request(Link.login(email: self.idTextField.text!, password: Int(self.passwordTextField.text! ) ?? 0)) { response in
+            provider.request(Link.login(email: self.idTextField.text!, password: self.passwordTextField.text! )) { response in
         
                 switch response {
                 case .success(let result):
@@ -50,6 +52,8 @@ extension LoginViewController {
                             print("로그인 완료! 메인탭바를 루트로 설정 후 이동")
                             print("========로그인 성공 시 받는 데이터============")
                             print(result.data)
+                            
+                          
                             
 
                         } else if result.statusCode == 400 {
@@ -66,6 +70,8 @@ extension LoginViewController {
                 case .failure(let err):
                     print("3[][][][][][")
                     print(err.localizedDescription)
+                    
+                   
                 }
             }
         } else {

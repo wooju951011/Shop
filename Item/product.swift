@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct product: Decodable {
+struct product: Codable, Hashable {
     let topPrimaryNumber: Int
     let topName: String
     let topPrice: Int
