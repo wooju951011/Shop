@@ -1,9 +1,10 @@
 //
 //  MainHomeViewController.swift
-//  Shop
+//  example
 //
-//  Created by wooju on 2023/01/09.
+//  Created by wooju on 2023/01/05.
 //
+
 
 import UIKit
 import SnapKit
@@ -33,7 +34,7 @@ final class MainHomeViewController: UIViewController {
     }
 
     private let navigationbar = UIView().then {
-        $0.backgroundColor = .systemGray
+        $0.backgroundColor = .gray
     }
 
     private let logoImageView = UIImageView().then {
@@ -66,6 +67,7 @@ final class MainHomeViewController: UIViewController {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
 
+//    private let cvHeaderView = HeaderView()
 
     private let collectionView:  UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -140,18 +142,12 @@ final class MainHomeViewController: UIViewController {
     private func scrollViewRender() {
         contentView.addSubview(mainImageView)
         contentView.addSubview(collectionView)
-        
+//        contentView.addSubview(cvHeaderView)
 
         mainImageView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(600)
-        }
-
-
-        collectionView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(390)
         }
     }
 }
@@ -162,56 +158,56 @@ final class MainHomeViewController: UIViewController {
 extension MainHomeViewController {
     @objc
     func categoryButtonClicked(){
-        let vc = CategoryViewController()
+        let vc = CategoryMenuViewController()
         self.delegate?.tempFunc()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
+    
     @objc
     func cartButtonClicked() {
         let vc = CartViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
-
-// MARK: - CollectionViewDelegate
-//extension MainHomeViewController: UICollectionViewDelegate {
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        didSelectItemAt indexPath: IndexPath) {
-//            let vc = ItemDetailViewController()
-//            self.navigationController?.pushViewController(vc, animated: true)
-//    }
-//}
-
-// MARK: - CollectionViewDataSource
-extension MainHomeViewController: UICollectionViewDataSource {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return 3
+    
+    // MARK: - CollectionViewDelegate
+    extension MainHomeViewController: UICollectionViewDelegate {
+        func collectionView(
+            _ collectionView: UICollectionView,
+            didSelectItemAt indexPath: IndexPath) {
+                let vc = ItemDetailViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+    }
+    
+    // MARK: - CollectionViewDataSource
+    extension MainHomeViewController: UICollectionViewDataSource {
+        func collectionView(
+            _ collectionView: UICollectionView,
+            numberOfItemsInSection section: Int
+        ) -> Int {
+            return 3
+        }
+        
+        func collectionView(
+            _ collectionView: UICollectionView,
+            cellForItemAt indexPath: IndexPath
+        ) -> UICollectionViewCell {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainHomeCollectionViewCell", for: indexPath) as? MainHomeCollectionViewCell else {return UICollectionViewCell()}
+            
+            return cell
+        }
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainHomeCollectionViewCell", for: indexPath) as? MainHomeCollectionViewCell else {return UICollectionViewCell()}
-
-        return cell
+    // MARK: - CollectionViewDelegateFlowLayout
+    extension MainHomeViewController: UICollectionViewDelegateFlowLayout {
+        func collectionView(
+            _ collectionView: UICollectionView,
+            layout collectionViewLayout: UICollectionViewLayout,
+            sizeForItemAt indexPath: IndexPath
+        ) -> CGSize {
+            return CGSize(width: 255, height: 390)
+        }
     }
-}
-
-// MARK: - CollectionViewDelegateFlowLayout
-extension MainHomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-          _ collectionView: UICollectionView,
-          layout collectionViewLayout: UICollectionViewLayout,
-          sizeForItemAt indexPath: IndexPath
-     ) -> CGSize {
-          return CGSize(width: 255, height: 390)
-     }
-}
-
+    
 

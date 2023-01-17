@@ -30,8 +30,6 @@ class LoginViewController: UIViewController {
     
     @IBAction func LoginButton(_ sender: UIButton) {
         self.loginButtonClicked()
-        guard let tabVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else { return }
-        self.navigationController?.pushViewController(tabVC , animated: true)
     }
     
 }
@@ -52,6 +50,8 @@ extension LoginViewController {
                             print("로그인 완료! 메인탭바를 루트로 설정 후 이동")
                             print("========로그인 성공 시 받는 데이터============")
                             print(result.data)
+                            guard let tabVC = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else { return }
+                            self.navigationController?.pushViewController(tabVC , animated: true)
                             
                           
                             

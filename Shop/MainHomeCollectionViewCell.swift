@@ -1,9 +1,4 @@
-//
-//  MainHomeCollectionViewCell.swift
-//  Shop
-//
-//  Created by wooju on 2023/01/16.
-//
+
 
 import UIKit
 
@@ -26,17 +21,6 @@ final class MainHomeCollectionViewCell: UICollectionViewCell {
         $0.textAlignment = .center
     }
 
-//    private let numberLabel = UIButton().then {
-//
-//    }
-//
-//    private let minusButton = UIButton().then {
-//
-//    }
-//
-//    private let plusButton = UIButton().then {
-//
-//    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -2,7 +2,11 @@
 //  CartViewFooterCollectionReusableView.swift
 //  Shop
 //
-//  Created by wooju on 2023/01/16.
+//
+//  CartViewFooterCollectionReusableView.swift
+//  example
+//
+//  Created by wooju on 2023/01/05.
 //
 
 import UIKit
@@ -10,7 +14,7 @@ import UIKit
 final class CartViewFooterCollectionReusableView: UICollectionReusableView {
 
     private let divideLine = UIView().then {
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = .darkGray
     }
 
     private let totalPriceTitleLabel = UILabel().then {
@@ -19,7 +23,7 @@ final class CartViewFooterCollectionReusableView: UICollectionReusableView {
 
     lazy var priceNumberLabel = UILabel().then {
         $0.text = "0"
-        $0.textColor = .orange
+        $0.textColor = .red
         $0.textAlignment = .right
     }
 

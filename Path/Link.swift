@@ -5,7 +5,7 @@
 //  Created by wooju on 2023/01/02.
 //
 
-
+import UIKit
 import Moya
 
 enum Link: BaseTargetType {
@@ -15,11 +15,16 @@ enum Link: BaseTargetType {
     case getCartList
     case signUp(email: String, password: String, nickname: String)
     case login(email: String, password: String)
+    case postProfileImage(image: UIImage)
+    case postBackroundImage(image: UIImage)
+    case getFittedImage(cartID: Int)
+    case getBackgroundlist
+    case getFittedBackground(backgroundID: Int)
 }
 
 extension Link: TargetType {
     var path: String{
-        switch self{
+        switch self {
         case .getItemList:
             return "/product/list"
         case .getItemDetail(let itemID):
@@ -32,8 +37,19 @@ extension Link: TargetType {
             return "/user/register2/"
         case .login:
             return "/user/auth/"
+        case .postProfileImage:
+            return "/accounts/edit/"
+        case .postBackroundImage:
+            return "accounts/edit2/"
+        case .getFittedImage(let cartID):
+            return "/accounts/imageget/\(cartID)"
+        case .getBackgroundlist:
+            return "/product/list2/"
+        case .getFittedBackground(backgroundID: let backgroundID):
+            return "/accounts/imageget2/\(backgroundID)"
         }
     }
+
     var method: Moya.Method {
         switch self{
         case .getItemList:
@@ -48,8 +64,19 @@ extension Link: TargetType {
             return .post
         case .login:
             return .post
+        case .postProfileImage:
+            return .post
+        case .postBackroundImage:
+            return .post
+        case .getFittedImage:
+            return .get
+        case .getBackgroundlist:
+            return .get
+        case .getFittedBackground:
+            return .get
         }
     }
+
     var task: Task {
         switch self {
         case .getItemList:
@@ -77,9 +104,34 @@ extension Link: TargetType {
                 "password": password
             ]
             return .requestParameters(parameters: parameters, encoding:     JSONEncoding.default)
+        case .postProfileImage(image: let image):
+            let imageData = image.jpegData(compressionQuality: 1.0)
+
+            let formData: [Moya.MultipartFormData] = [Moya.MultipartFormData(provider: .data(imageData!), name: "image", fileName: "000010_0.jpg", mimeType: "image/jpeg")]
+            return .uploadMultipart(formData)
+
+        case .postBackroundImage(image: let image):
+            let imageData = image.jpegData(compressionQuality: 1.0)
+
+            let formData: [Moya.MultipartFormData] = [Moya.MultipartFormData(provider: .data(imageData!), name: "image", fileName: "0001_img.jpg", mimeType: "image/jpeg")]
+            return .uploadMultipart(formData)
+        case .getFittedImage:
+            return .requestPlain
+        case .getBackgroundlist:
+            return .requestPlain
+        case .getFittedBackground:
+            return .requestPlain
         }
     }
+
     var headers: [String: String]? {
-        return nil
+        switch self {
+        case .login:
+            return nil
+        default:
+            //return ["Content-Type": "application/json",
+            return ["Authorization": "Bearer "+KeychainHandler.shared.accessToken]
+            
+        }
     }
 }

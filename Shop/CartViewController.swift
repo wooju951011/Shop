@@ -1,10 +1,5 @@
 //
 //  CartViewController.swift
-//  Shop
-//
-//  Created by wooju on 2023/01/16.
-//
-
 import UIKit
 import Moya
 import RxSwift
@@ -56,17 +51,17 @@ final class CartViewController: UIViewController {
     }
 
     private let divideLine = UIView().then {
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = .gray
     }
 
     private let totalPriceTitleLabel = UILabel().then {
         $0.text = "총 상품금액"
-        $0.textColor = .darkGray
+        $0.textColor = .red
     }
 
     private let totalPriceLabel = UILabel().then {
         $0.text = "59,000"
-        $0.textColor = .orange
+        $0.textColor = .white
     }
 
     private let buyButton = UIButton().then {
@@ -234,8 +229,6 @@ extension CartViewController {
 
 extension CartViewController: DeleteCartItemDelegation {
     func deleteItem(cell: UICollectionViewCell) {
-
+        UIAlertAction(title: "삭제되었습니다.", style: .default)
     }
 }
-
-

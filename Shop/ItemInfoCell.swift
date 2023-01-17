@@ -13,6 +13,7 @@ class ItemInfoCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var descriptionLabe: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,7 +25,7 @@ class ItemInfoCell: UICollectionViewCell {
         nameLabel.text = item.topName
         priceLabel.text = "\(formatNumber(item.topPrice))원"
         categoryLabel.text = item.category
-        
+        descriptionLabe.text = item.description
         thumbnail.image = UIImage(named: "itemDetailImage")
     }
     

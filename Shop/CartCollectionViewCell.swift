@@ -1,8 +1,9 @@
 //
-//  CartCollectionViewCell.swift
-//  Shop
 //
-//  Created by wooju on 2023/01/16.
+//  CartCollectionViewCell.swift
+//  example
+//
+//  Created by wooju on 2023/01/05.
 //
 
 import UIKit

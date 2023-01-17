@@ -10,59 +10,20 @@ import UIKit
 class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateNavigationItem(vc: self.selectedViewController!)
-    }
-    private func updateNavigationItem(vc: UIViewController) {
-        switch vc {
-        case is MainHomeViewController:
-            let titleConfig = CustomBarItemConfiguration(
-                title: "우주샵",
-                handler: { }
-            )
-            let titleItem = UIBarButtonItem.generate(with: titleConfig)
-            
-            let feedConfig = CustomBarItemConfiguration(
-                image: UIImage(systemName: "bell"),
-                handler: { print("--> feed tapped") }
-            )
-            let feedItem = UIBarButtonItem.generate(with: feedConfig, width: 30)
-            
-            navigationItem.leftBarButtonItem = titleItem
-            navigationItem.rightBarButtonItems = [feedItem]
-            navigationItem.backButtonDisplayMode = .minimal
-            
-        case is MyProfileViewController:
-            let titleConfig = CustomBarItemConfiguration(
-            title: "내 정보",
-            handler: { }
-            )
-            let titleItem = UIBarButtonItem.generate(with: titleConfig)
-         
-            navigationItem.leftBarButtonItem = titleItem
-        case is CategoryViewController:
-            let titleConfig = CustomBarItemConfiguration(
-                title: "장바구니",
-                handler: { }
-            )
-            let titleItem = UIBarButtonItem.generate(with: titleConfig)
-            navigationItem.leftBarButtonItem = titleItem
-        default:
-            let titleConfig = CustomBarItemConfiguration(
-                title: "우주샵",
-                handler: { }
-            )
-            let titleItem = UIBarButtonItem.generate(with: titleConfig)
-            
-            navigationItem.leftBarButtonItem = titleItem
-        }
+        print(KeychainHandler.shared.nickname)
+        print(KeychainHandler.shared.emailID)
+        print(KeychainHandler.shared.accessToken)
+        
+        let mainHomeVC = UINavigationController(rootViewController: MainHomeViewController())
+        mainHomeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "btnHomeMaintabNormal"), selectedImage: UIImage(named: "btnHomeMaintabPressed"))
+        
+        let myProfileVC = UINavigationController(rootViewController: MyProfileViewController())
+        myProfileVC.tabBarItem = UITabBarItem(title: "My", image: UIImage(named: "btnMypageMaintabNormal"), selectedImage: UIImage(named: "btnMypageMaintabPressed"))
+        
+        self.setViewControllers([mainHomeVC,
+                                 myProfileVC],
+                                animated: true)
     }
 }
-extension TabBarController: UITabBarControllerDelegate {
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        updateNavigationItem(vc: viewController)
-    }
-}
+    
+
